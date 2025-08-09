@@ -150,7 +150,7 @@ const TETROMINOS={
   T:{shape:[[0,1,0],[1,1,1],[0,0,0]],color:'#8338ec'},
   S:{shape:[[0,1,1],[1,1,0],[0,0,0]],color:'#3a86ff'},
   Z:{shape:[[1,1,0],[0,1,1],[0,0,0]],color:'#ff006e'},
-  J:{shape:[[1,0,0],[1,1,1],[0,0,0]],color:'#0066ff'},
+  J:{shape:[[1,0,0],[1,1,1],[0,0,0]],color:'#00e1ff'},
   L:{shape:[[0,0,1],[1,1,1],[0,0,0]],color:'#ff7900'}
 };
 const TYPES=Object.keys(TETROMINOS);
@@ -377,7 +377,7 @@ function handleKey(k){
 
 function setupBtn(id, fn){
   const b=document.getElementById(id); let timer=null, down=false;
-  const start=()=>{ if(!down){ down=true; ensureAudio(); fn(); timer=setTimeout(()=>{ if(down){ const iv=setInterval(()=>{ if(down && !paused) fn(); else clearInterval(iv); }, keyRate); } }, keyDelay); } };
+  const start=()=>{ if(!down){ down=true; ensureAudio(); fn(); if(id!=='hardDrop'){ timer=setTimeout(()=>{ if(down){ const iv=setInterval(()=>{ if(down && !paused) fn(); else clearInterval(iv); }, keyRate); } }, keyDelay);} } };
   const end=()=>{ down=false; if(timer){ clearTimeout(timer); timer=null; } };
   b.addEventListener('mousedown', e=>{e.preventDefault(); start();});
   b.addEventListener('mouseup', end); b.addEventListener('mouseleave', end);
