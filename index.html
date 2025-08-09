@@ -229,7 +229,7 @@ function clearLines(){
         });
         lines+=rows.length; const bonus=rows.length===4?800:rows.length*100;
         score+=bonus*level; level=Math.floor(lines/10)+1;
-        dropInterval=Math.max(50,1000-(level-1)*50);
+        dropInterval = Math.max(40, Math.round(1000 * Math.pow(0.90, level - 1)));
         if(score>high){ high=score; saveHi(); }
         updateUI();
       }
@@ -377,7 +377,7 @@ function handleKey(k){
 
 function setupBtn(id, fn){
   const b=document.getElementById(id); let timer=null, down=false;
-  const start=()=>{ if(!down){ down=true; ensureAudio(); fn(); if(id!=='hardDrop'){ timer=setTimeout(()=>{ if(down){ const iv=setInterval(()=>{ if(down && !paused) fn(); else clearInterval(iv); }, keyRate); } }, keyDelay);} } };
+  const start=()=>{ if(!down){ down=true; ensureAudio(); fn(); timer=setTimeout(()=>{ if(down){ const iv=setInterval(()=>{ if(down && !paused) fn(); else clearInterval(iv); }, keyRate); } }, keyDelay); } };
   const end=()=>{ down=false; if(timer){ clearTimeout(timer); timer=null; } };
   b.addEventListener('mousedown', e=>{e.preventDefault(); start();});
   b.addEventListener('mouseup', end); b.addEventListener('mouseleave', end);
