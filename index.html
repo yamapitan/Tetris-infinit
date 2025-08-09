@@ -229,7 +229,7 @@ function clearLines(){
         });
         lines+=rows.length; const bonus=rows.length===4?800:rows.length*100;
         score+=bonus*level; level=Math.floor(lines/10)+1;
-        dropInterval = Math.max(40, Math.round(1000 * Math.pow(0.90, level - 1)));
+        dropInterval = Math.max(60, Math.round(1400 * Math.pow(0.92, level - 1)));
         if(score>high){ high=score; saveHi(); }
         updateUI();
       }
@@ -268,7 +268,7 @@ function over(){
   document.getElementById('gameOver').style.display='flex';
 }
 function restart(){
-  initBoard(); score=0; level=1; lines=0; dropInterval=1000;
+  initBoard(); score=0; level=1; lines=0; dropInterval = 1400;
   held=null; canHold=true; running=true; queue=[];
   document.getElementById('gameOver').style.display='none';
   updateUI(); next=randPiece(); spawn(); requestAnimationFrame(loop);
